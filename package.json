@@ -1,0 +1,25 @@
+{
+    "name": "chance-factory",
+    "version": "0.1.0",
+    "description": "Easily create dummy objects for testing, using chance library. Heavily inspired by Laravel's factory helper.",
+    "main": "dist/chance-factory.js",
+    "scripts": {
+        "build": "microbundle"
+    },
+    "keywords": [
+        "testing",
+        "factory",
+        "dummy"
+    ],
+    "author": "Nemanja Krstić <nemanja.d.krstic@gmail.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "microbundle": "^0.11.0"
+    },
+    "dependencies": {
+        "chance": "^1.0.18"
+    },
+    "peerDependencies": {
+        "lodash": "4.x"
+    }
+}
