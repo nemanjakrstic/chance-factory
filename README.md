@@ -1,5 +1,11 @@
 # Chance Factory
 
+## Installation
+
+```bash
+$ npm install -D chance-factory
+```
+
 ## Usage
 
 ### 1. Create a Model Factory
