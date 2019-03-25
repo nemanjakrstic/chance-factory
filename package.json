@@ -1,6 +1,6 @@
 {
     "name": "chance-factory",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Easily create dummy objects for testing, using chance library. Heavily inspired by Laravel's factory helper.",
     "main": "dist/chance-factory.js",
     "scripts": {
