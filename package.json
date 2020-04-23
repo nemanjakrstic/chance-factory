@@ -2,9 +2,12 @@
     "name": "chance-factory",
     "version": "0.1.2",
     "description": "Easily create dummy objects for testing, using chance library. Heavily inspired by Laravel's factory helper.",
-    "main": "dist/chance-factory.js",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
-        "build": "microbundle"
+        "build": "tsc",
+        "prepublish": "tsc",
+        "test": "jest"
     },
     "keywords": [
         "testing",
@@ -13,13 +16,21 @@
     ],
     "author": "Nemanja Krstić <nemanja.d.krstic@gmail.com>",
     "license": "MIT",
-    "devDependencies": {
-        "microbundle": "^0.11.0"
-    },
     "dependencies": {
-        "chance": "^1.0.18"
+        "chance": "^1.1.4"
     },
     "peerDependencies": {
         "lodash": "4.x"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.9.0",
+        "@babel/preset-env": "^7.9.5",
+        "@babel/preset-typescript": "^7.9.0",
+        "@types/chance": "^1.0.10",
+        "@types/jest": "^25.2.1",
+        "@types/lodash": "^4.14.150",
+        "babel-jest": "^25.4.0",
+        "jest": "^25.4.0",
+        "typescript": "^3.8.3"
     }
 }
