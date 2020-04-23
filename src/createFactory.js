@@ -20,10 +20,11 @@ const createFactory = factories => {
             const chance = new Chance();
 
             if (_.isNumber(attributes)) {
-                return _.range(0, attributes).map(() => factories[name](chance));
+                return _.range(0, attributes).map(() => factories[name](chance, factory));
             }
 
-            return _.assign(factories[name](chance), attributes);
+            attributes = _.isFunction(attributes) ? attributes(chance, factory) : attributes;
+            return _.assign(factories[name](chance, factory), attributes);
         }
 
         throw new Error(`Factory for "${name}" does not exist! Did you forget to register your factory?`);
