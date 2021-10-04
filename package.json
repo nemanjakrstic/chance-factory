@@ -14,7 +14,7 @@
     "author": "Nemanja Krstić <nemanja.d.krstic@gmail.com>",
     "license": "MIT",
     "devDependencies": {
-        "microbundle": "^0.11.0"
+        "microbundle": "^0.13.3"
     },
     "dependencies": {
         "chance": "^1.0.18"
