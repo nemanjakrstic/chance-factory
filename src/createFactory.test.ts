@@ -1,14 +1,5 @@
 import { createFactory } from './createFactory';
 
-const User = createFactory((chance) => ({
-    id: chance.integer(),
-    name: chance.name(),
-    email: chance.email(),
-}));
-
-const user = User.create();
-console.log(user);
-
 test('should use default attributes', () => {
     const UserFactory = createFactory<User>(() => ({
         id: 1,

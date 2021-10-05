@@ -1,5 +1,5 @@
-import Chance from 'chance';
-import set from 'lodash/set';
+import { Chance } from 'chance';
+import { set } from 'lodash';
 
 type GetAttributeValue<T> = (attributes: T, sequence: number) => AttributeValue<T>;
 
