@@ -6,6 +6,12 @@
 $ npm install -D chance-factory
 ```
 
+This package has a peer dependency of `lodash`. You probably need to install it as well.
+
+```bash
+$ npm install lodash
+```
+
 ## Usage
 
 ### Simple Factory

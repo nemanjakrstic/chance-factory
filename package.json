@@ -1,23 +1,27 @@
 {
     "name": "chance-factory",
-    "type": "module",
     "version": "0.1.2",
-    "description": "Easily create dummy objects for testing, using Chance library.",
+    "description": "Easily create dummy objects for testing, with a help of Chance library.",
     "author": "Nemanja Krstić <nemanja.d.krstic@gmail.com>",
     "license": "MIT",
+    "type": "module",
     "source": "src/index.ts",
     "exports": "./dist/chance-factory.modern.js",
-    "main": "dist/chance-factory.js",
-    "module": "./dist/chance-factory.module.js",
-    "unpkg": "./dist/chance-factory.umd.js",
+    "main": "dist/chance-factory.cjs",
+    "umd:main": "dist/chance-factory.umd.js",
+    "module": "dist/chance-factory.module.js",
+    "unpkg": "dist/chance-factory.umd.js",
+    "types": "dist/chance-factory.d.ts",
     "scripts": {
+        "dev": "microbundle watch",
         "build": "microbundle",
         "test": "jest"
     },
     "keywords": [
         "testing",
         "factory",
-        "dummy"
+        "dummy",
+        "builder"
     ],
     "devDependencies": {
         "@babel/core": "^7.15.5",
@@ -33,5 +37,8 @@
     },
     "dependencies": {
         "chance": "^1.0.18"
+    },
+    "peerDependencies": {
+        "lodash": "^4.17.21"
     }
 }
