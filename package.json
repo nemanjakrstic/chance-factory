@@ -2,7 +2,7 @@
     "name": "chance-factory",
     "type": "module",
     "version": "0.1.2",
-    "description": "Easily create dummy objects for testing, using chance library. Heavily inspired by Laravel's factory helper.",
+    "description": "Easily create dummy objects for testing, using Chance library.",
     "author": "Nemanja Krstić <nemanja.d.krstic@gmail.com>",
     "license": "MIT",
     "source": "src/index.ts",
