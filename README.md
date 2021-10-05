@@ -8,65 +8,193 @@ $ npm install -D chance-factory
 
 ## Usage
 
-### 1. Create a Model Factory
-
-`UserFactory.js`
+### Simple Factory
 
 ```js
-const UserFactory = chance => ({
+const User = createFactory(() => ({
+    id: 1,
+    name: 'John',
+}));
+
+const user = User.create();
+
+expect(user).toEqual({
+    id: 1,
+    name: 'John',
+});
+```
+
+### Generate Random Data with Chance
+
+```js
+const User = createFactory((chance) => ({
     id: chance.integer(),
     name: chance.name(),
     email: chance.email(),
+}));
+
+const user = User.create();
+
+expect(user).toEqual({
+    id: 123,
+    name: 'Random Name',
+    email: 'random@email.com',
 });
-
-export default UserFactory;
 ```
 
-### 2. Create the Factory and Register Your Model Factories
-
-`factory.js`
+### Override Attributes
 
 ```js
-import createFactory from 'chance-factory';
-import UserFactory from './UserFactory';
-import RoleFactory from './RoleFactory';
+const User = createFactory((chance) => ({
+    id: chance.integer(),
+    name: chance.name(),
+    email: chance.email(),
+}));
 
-const factory = createFactory({
-    User: UserFactory,
-    Role: RoleFactory,
+const user = User.create({ email: 'primary@email.com' });
+
+expect(user).toEqual({
+    id: 123,
+    name: 'Random Name',
+    email: 'primary@email.com',
 });
-
-export default factory;
 ```
 
-### 3. Use the Factory to Generate Models
+### Access Current Attributes
+
+Order matters. Attribute `email` needs to be after the `name` attribute.
 
 ```js
-import factory from './factory';
+const User = createFactory((chance) => ({
+    id: chance.integer(),
+    name: 'John',
+    email: (user) => `${user.name.toLowerCase()}@email.com`,
+}));
 
-const user = factory('User');
+const users = User.create();
 
-console.log(user); // { id: 123, name: 'Random Name', email: 'random@email.com' }
+expect(users).toEqual({
+    id: 123,
+    name: 'John',
+    email: 'john@email.com',
+});
 ```
 
-#### Override Attributes
+### Nested Factories
 
 ```js
-import factory from './factory';
+const Role = createFactory((chance) => ({
+    name: chance.word(),
+}));
 
-const user = factory('User', { name: 'John Doe' });
+const User = createFactory((chance) => ({
+    id: chance.integer(),
+    name: chance.name(),
+    role: Role.create(),
+}));
 
-console.log(user); // { id: 123, name: 'John Doe', email: 'random@email.com' }
+const user = User.create();
+
+expect(user).toEqual({
+    id: 123,
+    name: 'Random Name',
+    role: { name: 'random-word' },
+});
 ```
 
-#### Create Multiple Models
+### Override Nested Attributes using Dot Notation
 
 ```js
-import factory from './factory';
+const Role = createFactory((chance) => ({
+    name: chance.name(),
+}));
 
-const users = factory('User' 2);
+const User = createFactory((chance) => ({
+    id: chance.integer(),
+    name: chance.name(),
+    role: Role.create(),
+}));
 
-console.log(users); // [{ id: 123, name: 'Random Name', email: 'random@email.com' }, { id: 456, name: 'John Doe', email: 'random@email.com' }]
+const user = User.create({ 'role.name': 'Admin' });
+
+expect(user).toEqual({
+    id: 123,
+    name: 'Random Name',
+    role: { name: 'Admin' },
+});
+```
+
+### Create Multiple Objects
+
+```js
+const User = createFactory((chance) => ({
+    id: chance.integer(),
+    name: chance.name(),
+}));
+
+const users = User.createMany(3);
+
+expect(users).toEqual([
+    { id: 123, name: 'Random Name 1' },
+    { id: 456, name: 'Random Name 2' },
+    { id: 789, name: 'Random Name 3' },
+]);
+```
+
+### Override Attributes on Multiple Objects
+
+```js
+const User = createFactory((chance) => ({
+    id: chance.integer(),
+    name: chance.name(),
+}));
+
+const users = User.createMany(3, { name: 'John Doe' });
+
+expect(users).toEqual([
+    { id: 123, name: 'John Doe' },
+    { id: 456, name: 'John Doe' },
+    { id: 789, name: 'John Doe' },
+]);
+```
+
+### Create Multiple of Nested Objects
+
+```js
+const Role = createFactory((chance) => ({
+    name: chance.word(),
+}));
+
+const User = createFactory((chance) => ({
+    id: chance.integer(),
+    name: chance.name(),
+    roles: Role.createMany(3),
+}));
+
+const user = User.create();
+
+expect(user).toEqual({
+    id: 123,
+    name: 'Random Name',
+    roles: [{ name: 'random-word-1' }, { name: 'random-word-2' }, { name: 'random-word-3' }],
+});
+```
+
+### Generate Sequenced Data
+
+```js
+const User = createFactory((chance) => ({
+    id: (user, sequence) => sequence,
+    email: (user, sequence) => `email${sequence}@email.com`,
+}));
+
+const users = User.createMany(3);
+
+expect(users).toEqual([
+    { id: 1, email: 'email1@email.com' },
+    { id: 2, email: 'email2@email.com' },
+    { id: 3, email: 'email3@email.com' },
+]);
 ```
 
 ## Chance Factory is Using Chance
